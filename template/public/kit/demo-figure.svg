@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800">
+  <rect width="1600" height="800" fill="#ffffff"/>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <text x="800" y="70" font-size="40" fill="#1f2937" font-weight="bold">Demo framework (placeholder figure)</text>
+    <g fill="#eef2ff" stroke="#4f46e5" stroke-width="4">
+      <rect x="60" y="250" width="300" height="300" rx="24"/>
+      <rect x="460" y="150" width="320" height="220" rx="24"/>
+      <rect x="460" y="430" width="320" height="220" rx="24"/>
+      <rect x="880" y="250" width="300" height="300" rx="24"/>
+      <rect x="1260" y="300" width="280" height="200" rx="24"/>
+    </g>
+    <g font-size="34" fill="#111827">
+      <text x="210" y="412">Encoder</text>
+      <text x="620" y="272">Module A</text>
+      <text x="620" y="552">Module B</text>
+      <text x="1030" y="412">Fusion</text>
+      <text x="1400" y="412">Head</text>
+    </g>
+    <g stroke="#6b7280" stroke-width="5" fill="none">
+      <path d="M360 360 L460 260"/><path d="M360 440 L460 540"/>
+      <path d="M780 260 L880 360"/><path d="M780 540 L880 440"/>
+      <path d="M1180 400 L1260 400"/>
+    </g>
+  </g>
+</svg>

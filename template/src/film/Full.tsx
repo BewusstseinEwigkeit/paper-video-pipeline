@@ -5,11 +5,13 @@ import { CFG } from "./config";
 import { FilmTexture } from "./motion";
 import { Scenes } from "./Scenes";
 import { Caption, SectionTag } from "./Shell";
+import { ChapterLeak } from "../kit/ChapterLeak";
 import { FPS, UI } from "./theme";
 
 export const Scene: React.FC<{ t: number }> = ({ t }) => (
   <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 40%, #101827 0%, ${UI.bg} 70%)` }}>
     <Scenes t={t} />
+    {CFG.chapterLeak && <ChapterLeak t={t} />}
     <FilmTexture frame={Math.round(t * FPS)} grain={0.04} vignette={0.48} />
     <SectionTag t={t} />
     <Caption t={t} />

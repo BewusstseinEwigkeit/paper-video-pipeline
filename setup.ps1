@@ -97,7 +97,7 @@ if (-not $NoModel) {
 
 Step 'Edge TTS reachability'
 try {
-  Py -c "import asyncio, edge_tts; print(len(asyncio.run(edge_tts.list_voices())), 'voices')"
+  Py -c "import asyncio, os, edge_tts; p = next((os.environ[k] for k in ('HTTPS_PROXY','https_proxy','ALL_PROXY','all_proxy','HTTP_PROXY','http_proxy') if os.environ.get(k)), None); asyncio.run(edge_tts.Communicate('ok', 'en-US-AndrewNeural', proxy=p).save(os.path.join(__import__('tempfile').gettempdir(), 'pvp_edge_check.mp3'))); print('synthesis ok')"
   Ok 'edge-tts works'
 } catch { Warn 'edge-tts could not reach speech.platform.bing.com; voicing needs that connection.' }
 

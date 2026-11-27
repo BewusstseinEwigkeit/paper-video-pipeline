@@ -9,7 +9,7 @@ usage: python -X utf8 tools/tts_edge.py narration.json out/vo [section keys...]
   default voices: en-US-AndrewNeural (English), zh-CN-YunyangNeural (Chinese). List all: python -m edge_tts --list-voices
 Re-synthesizing one section only re-runs that key, e.g. `... out/vo r`; the other takes are kept.
 """
-import asyncio, json, subprocess, sys, tempfile, time
+import asyncio, json, os, subprocess, sys, tempfile, time
 from pathlib import Path
 
 import edge_tts
@@ -26,12 +26,14 @@ if "Neural" not in VOICE:  # empty, or a Gemini voice name left over from an old
     if VOICE: print(f"note: {VOICE!r} is not an Edge voice; using the default for {LANG!r}")
     VOICE = DEFAULT_VOICE.get(LANG.split("-")[0], DEFAULT_VOICE["en"])
 RATE, PITCH = tts.get("rate", "+0%"), tts.get("pitch", "+0Hz")
+# the websocket does not read proxy variables by itself; pass them through (needed behind HTTP proxies)
+PROXY = next((os.environ[k] for k in ("HTTPS_PROXY", "https_proxy", "ALL_PROXY", "all_proxy", "HTTP_PROXY", "http_proxy") if os.environ.get(k)), None)
 SECTIONS = [s["key"] for s in spec["sections"]]
 want = set(sys.argv[3:]) or set(SECTIONS)
 
 
 async def synth(text, mp3):
-    await edge_tts.Communicate(text, VOICE, rate=RATE, pitch=PITCH).save(str(mp3))
+    await edge_tts.Communicate(text, VOICE, rate=RATE, pitch=PITCH, proxy=PROXY).save(str(mp3))
 
 
 def dur(p):
@@ -39,7 +41,7 @@ def dur(p):
                                 capture_output=True, text=True).stdout)
 
 
-print(f"voice {VOICE}  rate {RATE}  lang {LANG}")
+print(f"voice {VOICE}  rate {RATE}  lang {LANG}" + (f"  proxy {PROXY}" if PROXY else ""))
 total = 0.0
 for sec in SECTIONS:
     if sec not in want: continue

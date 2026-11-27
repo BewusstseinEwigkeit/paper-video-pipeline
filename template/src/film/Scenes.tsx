@@ -8,6 +8,7 @@ import React from "react";
 import { EASE, RevealNumber, RevealText } from "./motion";
 import { ACCENT, C, SANS, UI, clamp01, fade, lerp } from "./theme";
 import { VO, at } from "./vo";
+import { FigCard } from "../kit/FigCard";
 
 const SERIF_IT: React.CSSProperties = { fontFamily: "'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 };
 const verbatim = (id: string) => VO[id].text.replace(/[.。]$/, "");
@@ -96,8 +97,16 @@ const Headline: React.FC<{ t: number }> = ({ t }) => {
   );
 };
 
+// m1-m2: the framework figure (placeholder in public/kit/) walked through module by module with FigCard
+const Method: React.FC<{ t: number }> = ({ t }) => (
+  <FigCard src="kit/demo-figure.svg" iw={1600} ih={800} t={t} tIn={at("m1") - 0.4} tOut={at("m2", undefined, true) + 0.8}
+    x={190} y={100} w={900} h={450} leadDelay={1.0}
+    focus={[{ t: at("m1", undefined, true) - 0.6, r: [0.27, 0.15, 0.24, 0.68] }, { t: at("m2") + 0.2, r: [0.53, 0.27, 0.22, 0.45] }]} />
+);
+
 export const Scenes: React.FC<{ t: number }> = ({ t }) => (
   <>
+    <Method t={t} />
     <TitleCard t={t} id="c0a" />
     <Pipeline t={t} />
     <Question t={t} />

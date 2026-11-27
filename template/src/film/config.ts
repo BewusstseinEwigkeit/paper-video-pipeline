@@ -17,6 +17,8 @@ export const CFG = {
   methodWords: ["XYZ"],
   // lines that a card shows verbatim: no caption underneath (avoid saying the same words twice on screen)
   silentLines: ["c0a", "p1", "e1"],
+  // soft light leak at each chapter boundary (src/kit/ChapterLeak.tsx)
+  chapterLeak: true,
   // final mix produced by tools/mix_all.py; null renders silent (e.g. while blocking with fake_timeline.py)
   audio: null as string | null, // e.g. "audio/final.wav"
 };

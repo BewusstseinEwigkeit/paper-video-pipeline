@@ -16,7 +16,10 @@ bash setup.sh                                           # macOS / Linux
 
 脚本会做这些事：检查 Python 3.10+、Node 20+、ffmpeg，缺了就用 winget（Windows）或 Homebrew（macOS）装上；把 `requirements.txt` 装进当前的 Python（conda、venv 环境都认，macOS / Linux 不在虚拟环境里时装进 `.venv`）；在 `template/` 里 `npm install`；下载计时用的 Whisper 小模型（约 0.5 GB）；给 Claude Code、Codex、Gemini CLI、Antigravity 装上 skill；最后跑一遍冒烟测试。可选参数见脚本开头的注释。
 
-国内网络下载 Whisper 模型失败时，先设 `HF_ENDPOINT=https://hf-mirror.com` 再运行一次。
+网络受限时：
+- Whisper 模型下载失败，设 `HF_ENDPOINT=https://hf-mirror.com` 再运行一次。
+- 走 HTTP 代理时设好 `HTTPS_PROXY`，`tts_edge.py` 会把它传给 Edge TTS。
+- Remotion 自带浏览器下载失败（它不走代理），把环境变量 `PVP_BROWSER` 设成本机 Chrome / Chromium 的路径，`gpu_lock_render.py` 会改用它。Linux 上还要装 Chrome 依赖的系统库，见 Remotion 文档 Linux dependencies 一节（Ubuntu 一行：`sudo apt install libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2t64 libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libpango-1.0-0 libcairo2 libcups2`）。
 
 ## 只装 skill
 
@@ -65,6 +68,13 @@ python -X utf8 ..\tools\web_encode.py out\full.mp4 out\film_web.mp4 95
 
 Edge TTS 不读导演提示。想要能按章节调语气的音色，用 `tools/tts_gemini.py`，设置写在 `"tts_gemini"`（见示例文件）。它走 Google Cloud Text-to-Speech，需要自己的 GCP 项目、`gcloud auth login`，并在项目里开通 Text-to-Speech API。两个引擎输出同样的 `_sec_*.wav`，后面的步骤不变。
 
+## 可复用资产
+
+- **画面组件**（`template/src/kit/`）：`FigCard` 论文图按旁白逐个模块推近和聚光；`Tag` 3D 或图上的 HUD 标签；`Axis` / `Bar` 按旁白逐条长出的条形图；`BigNumber` 大数字逐位升起后飞进条形的数值位；`ChapterLeak` 章节交界的漏光（`config.ts` 的 `chapterLeak` 开关）；`Sampler` 按固定步长抽帧，供联系表审片。示例片的方法章就是 `FigCard` 的用法，`KitDemo` 合成把全部组件放在一条 12 秒的演示里：`npx remotion studio` 里打开 `KitDemo`。
+- **动效原语**（`template/src/film/motion.tsx`）：命名缓动、时长、`RevealText`、`RevealNumber`、`Sweep`、`FilmTexture`。
+- **字体**（`template/public/fonts/`）：Mona Sans、Source Serif 4、Instrument Serif，均为 OFL。
+- **提示词与任务书**（`prompts/`）：读论文定分镜、章节任务书、设计系统评审、联系表审片、动态样片审查、配音试听。
+
 ## 目录
 
 | 路径 | 内容 |
@@ -77,7 +87,9 @@ Edge TTS 不读导演提示。想要能按章节调语气的音色，用 `tools/
 | `docs/02-字体与动效规范.md` | 字体、配色语义、缓动和时长、组件清单 |
 | `docs/03-踩坑记录.md` | 时间锚点、音频、画面、内容、交付五类常见问题和做法 |
 | `tools/` | Python 工具链（见下表） |
-| `template/` | 最小 Remotion 工程：字幕、章节标记、动效原语，加四个示例场景；英文和中文示例文案 |
+| `template/` | Remotion 工程：字幕、章节标记、动效原语、示例场景，英文和中文示例文案 |
+| `template/src/kit/` | 可复用画面组件和 `KitDemo` 演示合成 |
+| `prompts/` | 提示词与任务书模板 |
 | `site/publish_ssh.py` | 用 ssh 上传静态站点，并从公网地址校验 |
 
 | 工具 | 作用 |

@@ -31,6 +31,8 @@ description: 论文与项目展示视频流水线（Remotion 画面挂在旁白�
 | 6 锚点与渲染 | `python -X utf8 $PVP/tools/check_anchors.py src/film src/film/data/vo.ts`，再 `python -X utf8 $PVP/tools/gpu_lock_render.py --cwd . -- render Full out/full.mp4 --scale=1.5 --concurrency=4 --codec=h264 --crf=16` | BAD = 0、WARN = 0 才渲染 |
 | 7 质检与交付 | `qa_video_audit.py`、`export_subs.py`、`web_encode.py`（用法见 README） | 看联系表；压到附件上限以内 |
 
+可复用资产：`template/src/kit/` 里有 `FigCard`（论文图逐个模块推近和聚光）、`Tag`、`Axis` / `Bar`、`BigNumber`、`ChapterLeak`、`Sampler`，`KitDemo` 合成演示全部组件；`$PVP/prompts/` 里有读论文定分镜、章节任务书、设计评审、联系表审片、动态样片审查、配音试听的模板，派活和审片直接套用。
+
 画面里的时间一律写成 `at("行 id", "旁白里的词")`，不写秒数。中文旁白按字计时，锚点可以挂在旁白里出现的英文术语和数字上，比如 `at("r1", "48.2")`。
 
 ## 核心原则
@@ -41,7 +43,7 @@ description: 论文与项目展示视频流水线（Remotion 画面挂在旁白�
 4. **数字与原图红线**：上屏的指标、曲线和表号逐条核对论文正文；不编造过渡数值；不经作者同意不删核心框架图；画面里不放防御性小字。
 5. **分级渲染**：迭代只看静帧和 10 到 40 秒带声样片，叙事和视觉定稿后再渲 1080p 全片。
 
-## 派活任务书最小结构
+## 派活任务书最小结构（完整模板见 `$PVP/prompts/02-章节任务书.md`）
 
 1. 工作目录边界：只许改指定章节的文件。
 2. 只读文件：`vo.wav`、`final.wav`、`src/film/data/vo.ts`。
