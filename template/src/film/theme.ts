@@ -32,13 +32,13 @@ export const B_COLORS = [C.B1, C.B2, C.B3];
 
 // Mona Sans (GitHub, OFL): variable width 75-125 + weight 200-900 + tabular figures; one family for titles, UI and numbers
 // Chinese glyphs fall back to the CJK faces after the Latin ones (Latin keeps Mona Sans / Source Serif 4)
-export const SANS = "'Mona Sans', 'Inter', 'Segoe UI', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif";
+export const SANS = "'Mona Sans', 'Inter', 'Segoe UI', 'Noto Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif";
 // One text family (Inter, tabular numerals for data) plus one display face for titles only.
-export const SERIF = LOOK === "ink" ? "'Playfair Display', Georgia, 'Noto Serif SC', 'Songti SC', serif" : "'Mona Sans', 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif";
+export const SERIF = LOOK === "ink" ? "'Playfair Display', Georgia, 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', serif" : "'Mona Sans', 'Inter', 'Noto Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif";
 export const TITLE_STYLE: "italic" | "normal" = LOOK === "ink" ? "italic" : "normal";
-export const MONO = "'Mona Sans', 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif";
+export const MONO = "'Mona Sans', 'Inter', 'Noto Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', sans-serif";
 // serif caption face with coloured italic keywords
-export const CAPTION = "'Source Serif 4', Georgia, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', serif";
+export const CAPTION = "'Source Serif 4', Georgia, 'Noto Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', serif";
 export const ACCENT = "#5FD3E8"; // method / module names
 
 const FONTS: Array<[string, string, string, string, string?]> = [

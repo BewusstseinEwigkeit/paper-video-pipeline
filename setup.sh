@@ -49,6 +49,10 @@ fi
 command -v ffprobe >/dev/null 2>&1 || fail "ffprobe missing (it ships with ffmpeg)"
 ok "$(ffmpeg -version | head -1)"
 
+if [ "$(uname -s)" = Linux ] && command -v fc-list >/dev/null 2>&1 && [ -z "$(fc-list :lang=zh 2>/dev/null | head -1)" ]; then
+  warn "no Chinese font found: Chinese captions would render as boxes. Install one: sudo apt install fonts-noto-cjk"
+fi
+
 step "Python packages (requirements.txt)"
 "$PY" -m pip install --disable-pip-version-check -r "$REPO/requirements.txt"
 ok "numpy, faster-whisper, edge-tts, pillow"

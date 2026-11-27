@@ -29,6 +29,29 @@ const TitleCard: React.FC<{ t: number; id: string }> = ({ t, id }) => {
   );
 };
 
+// b1: an abstract image with region proposals appearing across the line (timed by the line's start / end only,
+// so the same scene works for any narration language)
+const BOXES: Array<[number, number, number, number, boolean]> = [
+  [70, 60, 150, 110, false], [260, 40, 120, 160, true], [420, 90, 170, 120, false], [120, 210, 130, 100, false],
+  [300, 230, 110, 80, true], [470, 240, 140, 90, false], [40, 330, 120, 60, false], [560, 40, 70, 70, false],
+];
+const Regions: React.FC<{ t: number }> = ({ t }) => {
+  const t0 = at("b1"), t1 = at("b1", undefined, true);
+  const o = fade(t, t0 - 0.3, t0 + 0.3, t1 + 0.2, t1 + 0.7);
+  if (o <= 0) return null;
+  return (
+    <div style={{ position: "absolute", left: 320, top: 150, width: 640, height: 400, opacity: o, borderRadius: 14, overflow: "hidden",
+      background: "linear-gradient(135deg, #1B2638 0%, #0F1726 60%, #172235 100%)", border: "1px solid rgba(148,163,184,0.2)" }}>
+      {BOXES.map(([x, y, w, h, hot], i) => {
+        const k = EASE.out(clamp01((t - lerp(t0 + 0.2, t1 - 0.8, i / (BOXES.length - 1))) / 0.45));
+        const col = hot ? "#F87171" : ACCENT;
+        return <div key={i} style={{ position: "absolute", left: x, top: y, width: w, height: h, borderRadius: 4,
+          border: `1.5px solid ${col}`, opacity: k, transform: `scale(${lerp(1.08, 1, k)})`, background: hot ? "rgba(248,113,113,0.08)" : "transparent" }} />;
+      })}
+    </div>
+  );
+};
+
 // b2: typographic step line (numerals + serif italic words + hairlines that fill with the narration; no boxes, no glow)
 const Pipeline: React.FC<{ t: number }> = ({ t }) => {
   const o = fade(t, at("b2") - 0.2, at("b2") + 0.4, at("b2", undefined, true) + 0.2, at("b2", undefined, true) + 0.7);
@@ -106,6 +129,7 @@ const Method: React.FC<{ t: number }> = ({ t }) => (
 
 export const Scenes: React.FC<{ t: number }> = ({ t }) => (
   <>
+    <Regions t={t} />
     <Method t={t} />
     <TitleCard t={t} id="c0a" />
     <Pipeline t={t} />

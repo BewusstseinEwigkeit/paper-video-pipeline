@@ -19,6 +19,7 @@ bash setup.sh                                           # macOS / Linux
 网络受限时：
 - Whisper 模型下载失败，设 `HF_ENDPOINT=https://hf-mirror.com` 再运行一次。
 - 走 HTTP 代理时设好 `HTTPS_PROXY`，`tts_edge.py` 会把它传给 Edge TTS。
+- Linux 上做中文片要有中文字体：`sudo apt install fonts-noto-cjk`（Windows、macOS 自带）。`setup.sh` 检测不到时会提示。
 - Remotion 自带浏览器下载失败（它不走代理），把环境变量 `PVP_BROWSER` 设成本机 Chrome / Chromium 的路径，`gpu_lock_render.py` 会改用它。Linux 上还要装 Chrome 依赖的系统库，见 Remotion 文档 Linux dependencies 一节（Ubuntu 一行：`sudo apt install libnss3 libdbus-1-3 libatk1.0-0 libgbm-dev libasound2t64 libxrandr2 libxkbcommon-dev libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libpango-1.0-0 libcairo2 libcups2`）。
 
 ## 只装 skill
