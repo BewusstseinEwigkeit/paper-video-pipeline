@@ -73,15 +73,17 @@ Ok ((& ffmpeg -version | Select-Object -First 1))
 
 Step 'Python packages (requirements.txt)'
 Py -m pip install --disable-pip-version-check -r (Join-Path $Repo 'requirements.txt')
-Ok 'numpy, faster-whisper, edge-tts'
+Ok 'numpy, faster-whisper, edge-tts, pillow'
 
 Step 'Remotion template (npm install)'
 Push-Location (Join-Path $Repo 'template')
 try {
   & npm.cmd install --no-audit --no-fund
   if ($LASTEXITCODE -ne 0) { Fail 'npm install failed (behind a firewall? set a registry with: npm config set registry <mirror>)' }
+  & npx.cmd remotion browser ensure
+  if ($LASTEXITCODE -ne 0) { Warn 'could not download the Remotion headless browser; rendering will retry, or set PVP_BROWSER to an installed Chrome' }
 } finally { Pop-Location }
-Ok 'template/node_modules'
+Ok 'template/node_modules and the Remotion headless browser'
 
 if (-not $NoModel) {
   Step 'Whisper model for word timing (small.en, about 0.5 GB, once)'

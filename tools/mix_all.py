@@ -3,8 +3,8 @@
 usage: python -X utf8 tools/mix_all.py public/audio/vo.wav music.mp3 public/audio/final.wav
 
 If the music is shorter than the narration it is slowed with atempo (down to 0.90x, inaudible on ambient piano);
-anything shorter than that is an error: pick a longer track or loop it by hand. (Zero-padding would cut the bed
-off before the closing line - happened once when the narration grew from 4:08 to 5:22.)
+anything shorter than that is an error: pick a longer track or loop it by hand (zero-padding would cut the bed off
+before the closing line).
 
 Why not sidechaincompress: a compressor reacts AFTER the voice starts, so the piano drops audibly on the first syllable
 and pumps between sentences. Here the music is automated like an editor would ride a fader:

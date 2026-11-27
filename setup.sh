@@ -29,7 +29,8 @@ if [ -z "$PY" ]; then
 fi
 if [ -z "${VIRTUAL_ENV:-}" ] && [ -z "${CONDA_PREFIX:-}" ]; then
   # system / Homebrew Pythons refuse global pip installs (PEP 668): use a local venv
-  [ -x "$REPO/.venv/bin/python" ] || "$PY" -m venv "$REPO/.venv"
+  [ -x "$REPO/.venv/bin/python" ] || "$PY" -m venv "$REPO/.venv" \
+    || fail "could not create .venv (Debian/Ubuntu: sudo apt install python3-venv), or activate a conda / venv first"
   PY="$REPO/.venv/bin/python"; USE_VENV=1
 fi
 ok "$("$PY" -c 'import sys; print(sys.version.split()[0], sys.executable)')"
@@ -50,11 +51,12 @@ ok "$(ffmpeg -version | head -1)"
 
 step "Python packages (requirements.txt)"
 "$PY" -m pip install --disable-pip-version-check -r "$REPO/requirements.txt"
-ok "numpy, faster-whisper, edge-tts"
+ok "numpy, faster-whisper, edge-tts, pillow"
 
 step "Remotion template (npm install)"
 (cd "$REPO/template" && npm install --no-audit --no-fund) || fail "npm install failed (behind a firewall? npm config set registry <mirror>)"
-ok "template/node_modules"
+(cd "$REPO/template" && npx remotion browser ensure) || warn "could not download the Remotion headless browser; rendering will retry, or set PVP_BROWSER to an installed Chrome"
+ok "template/node_modules and the Remotion headless browser"
 
 if [ "$NO_MODEL" = 0 ]; then
   step "Whisper model for word timing (small.en, about 0.5 GB, once)"

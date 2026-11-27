@@ -1,7 +1,7 @@
 """Assemble the narration from the section-level TTS takes, keeping the speaker's own pauses.
 
-Replaces the old split -> tighten -> build_timeline chain, which re-encoded MP3 three times and squeezed every pause to
-the same length (sounded rushed and slightly "digital"). Here each section take stays continuous PCM:
+Each section take stays continuous PCM (re-encoding MP3 or squeezing every pause to one length sounds rushed and
+slightly "digital"):
   * pauses longer than CAP are shortened (middle removed, 30 ms equal-power crossfade, so no clicks);
   * sections are laid on one timeline with a chapter breath between them;
   * a few lines get EXTRA seconds inserted in the middle of their natural pause (room for a visual beat);

@@ -2,11 +2,11 @@
 
 A typical host is nginx + a cloudflared quick tunnel on a small VM; this script is the generic "sync + verify" step.
   * files are streamed as one tar over ssh (no scp per file, no rsync dependency on Windows);
-  * video files must be listed explicitly - a page-only sync leaves the old video in place (that happened once);
+  * video files must be listed explicitly - a page-only sync leaves the old video in place;
   * verification fetches the page and asks every .mp4 for its first and last byte range: 206 + the local size means
     the file is complete and seekable.
 usage: python -X utf8 site/publish_ssh.py <ssh-host-alias> <remote-dir> <local-site-dir> <public-url> file [file ...]
-example (PowerShell, or Git Bash with MSYS_NO_PATHCONV=1): python -X utf8 site/publish_ssh.py gcp-free-micro /var/www/film ./site https://xxx.trycloudflare.com index.html media/film_web.mp4 media/film_en.vtt
+example (PowerShell, or Git Bash with MSYS_NO_PATHCONV=1): python -X utf8 site/publish_ssh.py my-vm /var/www/film ./site https://xxx.trycloudflare.com index.html media/film_web.mp4 media/film_en.vtt
 """
 import os, subprocess, sys, urllib.request
 from pathlib import Path
