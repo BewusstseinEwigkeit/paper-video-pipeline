@@ -12,5 +12,8 @@ Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 Config.setDefaultPremountInSeconds(2);
 
-// keep ANGLE: needed as soon as a scene uses three.js / @remotion/three (e.g. a 3D road scene)
-Config.setChromiumOpenGlRenderer("angle");
+// WebGL backend (light leaks, three.js scenes): ANGLE on Windows / macOS; software SwiftShader on Linux, where headless
+// machines usually have no GPU. Override with PVP_GL=angle | swangle | egl | swiftshader | vulkan.
+declare const process: { env: Record<string, string | undefined>; platform: string };
+type GL = "angle" | "swangle" | "egl" | "swiftshader" | "vulkan" | "angle-egl";
+Config.setChromiumOpenGlRenderer((process.env.PVP_GL as GL | undefined) ?? (process.platform === "linux" ? "swangle" : "angle"));
