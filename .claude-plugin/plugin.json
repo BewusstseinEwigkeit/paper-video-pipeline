@@ -1,0 +1,19 @@
+{
+  "name": "paper-video-pipeline",
+  "version": "1.0.0",
+  "description": "Paper and project showcase video pipeline: narration-anchored Remotion picture, free Edge TTS voice (English / Chinese), word timing, mixing, QA, subtitles and delivery.",
+  "author": {
+    "name": "BewusstseinEwigkeit"
+  },
+  "homepage": "https://github.com/BewusstseinEwigkeit/paper-video-pipeline",
+  "repository": "https://github.com/BewusstseinEwigkeit/paper-video-pipeline",
+  "license": "MIT",
+  "keywords": [
+    "remotion",
+    "video",
+    "paper",
+    "tts",
+    "edge-tts",
+    "whisper"
+  ]
+}

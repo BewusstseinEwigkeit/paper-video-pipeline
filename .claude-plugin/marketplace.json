@@ -1,0 +1,17 @@
+{
+  "name": "paper-video-pipeline",
+  "owner": {
+    "name": "BewusstseinEwigkeit"
+  },
+  "metadata": {
+    "description": "Paper and project showcase video pipeline: narration-anchored Remotion picture, free Edge TTS voice (English / Chinese), timing, mixing, QA, subtitles."
+  },
+  "plugins": [
+    {
+      "name": "paper-video-pipeline",
+      "source": "./",
+      "description": "Make paper showcase videos with Remotion: narration-anchored picture, Edge TTS voice, word timing, mixing, QA and delivery.",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+ "note": "text = on-screen caption; say = respelling for TTS (acronyms letter by letter, numbers spelled where needed). Line ids start with their section key. The whole script is fictional.",
+ "lang": "en",
+ "tts": {
+  "voice": "en-US-AndrewNeural",
+  "rate": "+0%"
+ },
+ "tts_gemini": {
+  "model": "gemini-3.1-flash-tts-preview",
+  "voice": "Charon"
+ },
+ "sections": [
+  {
+   "key": "c",
+   "note": "This is the title line over music: say it with quiet confidence, slightly slow."
+  },
+  {
+   "key": "b",
+   "note": "Background: calm and inviting, setting the scene; steady pace."
+  },
+  {
+   "key": "p",
+   "note": "Problem: build curiosity and tension; a real question should sound like a question."
+  },
+  {
+   "key": "m",
+   "note": "Method: clear, confident explainer. Mark 'First' as a signpost with a short beat after each acronym."
+  },
+  {
+   "key": "r",
+   "note": "Results: confident and precise, proud but not salesy. Short pause before each key number; land it clearly."
+  },
+  {
+   "key": "e",
+   "note": "Closing: warm and conclusive, slower, with space. The last line is a quiet sign-off."
+  }
+ ],
+ "timeline": {
+  "lead": 4,
+  "tail": 2.6,
+  "cap": 0.95,
+  "chapter_gap": {
+   "b": 1.6,
+   "p": 1.7,
+   "m": 1.7,
+   "r": 1.8,
+   "e": 1.8
+  },
+  "extra": {
+   "m2": 0.8
+  }
+ },
+ "lines": [
+  {
+   "id": "c0a",
+   "text": "Small details decide the whole picture."
+  },
+  {
+   "id": "b1",
+   "text": "Modern detectors scan an image, propose regions, and classify each one."
+  },
+  {
+   "id": "b2",
+   "text": "This pipeline is simple: propose, classify, and refine."
+  },
+  {
+   "id": "p1",
+   "text": "But what happens to the objects that are almost invisible?"
+  },
+  {
+   "id": "m1",
+   "text": "We introduce XYZ, a framework that looks twice at every uncertain region.",
+   "say": "We introduce X-Y-Z, a framework that looks twice at every uncertain region."
+  },
+  {
+   "id": "m2",
+   "text": "First, it compares each region with its surroundings."
+  },
+  {
+   "id": "r1",
+   "text": "On the benchmark, XYZ reaches 48.2, compared with 45.1 for the baseline.",
+   "say": "On the benchmark, X-Y-Z reaches 48.2, compared with 45.1 for the baseline."
+  },
+  {
+   "id": "e1",
+   "text": "Small details decide the whole picture."
+  }
+ ]
+}

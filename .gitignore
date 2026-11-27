@@ -1,0 +1,13 @@
+node_modules/
+template/out/
+template/public/audio/
+out/
+__pycache__/
+*.pyc
+.env
+.venv/
+tools/_gpu.lock
+tools/render_queue.log
+# local notes and talk material (not part of the public repo)
+PROJECT.md
+组会分享-20261127/
